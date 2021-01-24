@@ -13,7 +13,7 @@ fi;
 apt update && apt upgrade
 
 #Install basic packages
-apt -y install vim git wget curl firefox-esr feh compton xorg build-essential libxft-dev libxinerama-dev libx11-dev fonts-font-awesome unzip nmap dkms
+apt -y install vim git wget curl firefox-esr feh compton xorg build-essential libxft-dev libxinerama-dev libx11-dev fonts-font-awesome unzip nmap dkms sudo
 
 #Make home directory
 cd /home/$_USR
@@ -21,15 +21,20 @@ if [[ `ls | grep Downloads` == "" ]]; then mkdir Downloads; fi;
 if [[ `ls | grep suckless` == "" ]]; then mkdir suckless; fi;
 if [[ `ls | grep Pictures` == "" ]]; then mkdir Pictures; fi;
 
-#Install font-awesome
-cd Downloads
-wget https://use.fontawesome.com/releases/v5.15.2/fontawesome-free-5.15.2-desktop.zip
-unzip *.zip
-cd `ls | grep fontawesome | grep -v ".zip"`
-cd otfs
-cp ./* /usr/share/fonts
-fc-cache
-cd /home/$_USR/Downloads && rm -rf *fontawesome*
+#Check if font-awesome is installed:
+if [[ `fc-list` == *"Font Awesome 5"* ]]; then
+  echo -e "\n\n\tFont Awesome already installed.\n\n\n"
+else
+  echo -e "\n\n\tInstalling Font Awesome\n\n\n"
+  cd Downloads
+  wget https://use.fontawesome.com/releases/v5.15.2/fontawesome-free-5.15.2-desktop.zip
+  unzip *.zip
+  cd `ls | grep fontawesome | grep -v ".zip"`
+  cd otfs
+  cp ./* /usr/share/fonts
+  fc-cache
+  cd /home/$_USR/Downloads && rm -rf *fontawesome*
+fi;
 
 #Check if user is in sudoers file:
 if [[ `cat /etc/sudoers | grep $_USR` == "" ]]; then
@@ -40,5 +45,30 @@ else
   echo -e "\n\n\tUser already in sudoers file.\nContinuing...\n\n\n";
 fi;
 
+#Cloning .xinitrc
+cd /home/$_USR
+wget https://raw.githubusercontent.com/kyriakosdt99/dot_files_debian/main/.xinitrc
+
+#Check if suckless utils are installed:
+if ! [[ `ls s/home/$_USR/suckless` == "" ]]; then 
+  echo -e "\n\n\Suckless utils are already installed\n\n\n"
+else
+  echo -e "\n\n\tCloning dwm, st and slstatus..\n\n\n"
+  cd /home/$_USR/suckless
+  git clone https://git.sucless.org/dwm && git clone https://git.suckless.org/st && git clone https://git.suckless.org/slstatus
+  
+  cd /dwm6
+  rm config.h config.def.h && wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/dwm_config.def.h && mv dwm_config.def.h config.def.h
+  make clean install 
+  
+  cd ../st
+  rm config.h config.def.h && wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/st_config.def.h && mv st_config.def.h config.def.h
+  make clean install
+  
+  cd ../slstatus
+  rm config.h config.def.h && wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/slstatus_config.def.h && mv slstatus_config.def.h config.def.h
+  cd components && rm run_command.c && wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/run_command.c && cd ../
+  make clean install
+fi;
 
 

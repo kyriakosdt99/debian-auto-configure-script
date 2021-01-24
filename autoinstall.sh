@@ -57,7 +57,7 @@ else
   cd /home/$_USR/suckless
   git clone https://git.sucless.org/dwm && git clone https://git.suckless.org/st && git clone https://git.suckless.org/slstatus
   
-  cd /dwm6
+  cd /dwm
   rm config.h config.def.h && wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/dwm_config.def.h && mv dwm_config.def.h config.def.h
   make clean install 
   

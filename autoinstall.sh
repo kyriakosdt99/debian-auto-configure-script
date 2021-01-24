@@ -46,26 +46,37 @@ else
 fi;
 
 #Cloning .xinitrc
-#cd /home/$_USR
-#wget https://raw.githubusercontent.com/kyriakosdt99/dot_files_debian/main/.xinitrc
+cd /home/$_USR
+if [[ `ls -a | grep ".xinitrc"` == "" ]]; then
+  echo -e "\n\n\tCloning .xinitrc\n\n\n"
+  wget https://raw.githubusercontent.com/kyriakosdt99/dot_files_debian/main/.xinitrc
+else
+  echo -e "\n\n\t.xinitrc is already installed\n\n\n"
+fi;
 
 #Check if suckless utils are installed:
-if ! [[ `ls s/home/$_USR/suckless` == "" ]]; then 
-  echo -e "\n\n\Suckless utils are already installed\n\n\n"
+if ! [[ `ls /home/$_USR/suckless` == "" ]]; then 
+  echo -e "\n\n\tSuckless utils are already installed\n\n\n"
 else
   echo -e "\n\n\tCloning dwm, st and slstatus..\n\n\n"
   cd /home/$_USR/suckless
-  git clone https://git.suckless.org/dwm && git clone https://git.suckless.org/st && git clone https://git.suckless.org/slstatus
+  git clone https://git.suckless.org/dwm 
+  git clone https://git.suckless.org/st
+  git clone https://git.suckless.org/slstatus
+
   cd dwm
-  wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/dwm_config.def.h && mv dwm_config.def.h config.def.h
+  wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/dwm_config.def.h 
+  mv dwm_config.def.h config.def.h
   make clean install 
   
   cd ../st
-  wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/st_config.def.h && mv st_config.def.h config.def.h
+  wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/st_config.def.h 
+  mv st_config.def.h config.def.h
   make clean install
   
   cd ../slstatus
-  wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/slstatus_config.def.h && mv slstatus_config.def.h config.def.h
+  wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/slstatus_config.def.h 
+  mv slstatus_config.def.h config.def.h
   cd components && wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/run_command.c && cd .. &&
   make clean install
 fi;

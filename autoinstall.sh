@@ -55,18 +55,26 @@ if ! [[ `ls s/home/$_USR/suckless` == "" ]]; then
 else
   echo -e "\n\n\tCloning dwm, st and slstatus..\n\n\n"
   cd /home/$_USR/suckless
-  git clone https://git.sucless.org/dwm && git clone https://git.suckless.org/st && git clone https://git.suckless.org/slstatus
+  git clone https://git.sucless.org/dwm 
+  git clone https://git.suckless.org/st
+  git clone https://git.suckless.org/slstatus
   
   cd /dwm
-  rm config.h config.def.h && wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/dwm_config.def.h && mv dwm_config.def.h config.def.h
+  rm config.h
+  rm config.def.h 
+  wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/dwm_config.def.h && mv dwm_config.def.h config.def.h
   make clean install 
   
   cd ../st
-  rm config.h config.def.h && wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/st_config.def.h && mv st_config.def.h config.def.h
+  rm config.h 
+  rm config.def.h
+  wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/st_config.def.h && mv st_config.def.h config.def.h
   make clean install
   
   cd ../slstatus
-  rm config.h config.def.h && wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/slstatus_config.def.h && mv slstatus_config.def.h config.def.h
+  rm config.h 
+  rm config.def.h
+  wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/slstatus_config.def.h && mv slstatus_config.def.h config.def.h
   cd components && rm run_command.c && wget https://raw.githubusercontent.com/kyriakosdt99/suckless_conf_files/main/run_command.c && cd ../
   make clean install
 fi;

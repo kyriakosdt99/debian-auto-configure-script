@@ -58,7 +58,7 @@ fi;
 if [[ `ls /usr/bin | grep batt_perc` == "" ]]; then
   echo -e "\n\n\tCloning batt_perc.sh\n\n\n"
   cd /home/$_USR && wget https://raw.githubusercontent.com/kyriakosdt99/batt_perc/main/batt_perc.sh
-  chmod +x batt_perc.sh && mv batt_perc.sh /usr/bin/
+  chmod +x batt_perc.sh && mv batt_perc.sh /usr/bin/batt_perc
 else
   echo -e "\n\n\tbatt_perc.sh already in bin\n\n\n"
 fi;

@@ -54,6 +54,15 @@ else
   echo -e "\n\n\t.xinitrc is already installed\n\n\n"
 fi;
 
+#Install batt_perc.sh
+if [[ `ls /usr/bin | grep batt_perc` == "" ]]; then
+  echo -e "\n\n\tCloning batt_perc.sh\n\n\n"
+  cd /home/$_USR && wget https://raw.githubusercontent.com/kyriakosdt99/batt_perc/main/batt_perc.sh
+  chmod +x batt_perc.sh && mv batt_perc.sh /usr/bin/
+else
+  echo -e "\n\n\tbatt_perc.sh already in bin\n\n\n"
+fi;
+
 #Check if suckless utils are installed:
 if ! [[ `ls /home/$_USR/suckless` == "" ]]; then 
   echo -e "\n\n\tSuckless utils are already installed\n\n\n"

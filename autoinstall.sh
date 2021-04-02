@@ -1,3 +1,10 @@
+DEPRICATED!!!!!
+SUCKLESS CONFIG FILES ARE REMOVED FROM NOW ON I WILL RETURN TO XFCE
+
+
+
+
+
 #!/usr/bin/bash
 
 #Change this to whatever user you want
